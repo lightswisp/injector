@@ -61,36 +61,29 @@ typedef struct{
 injection_ctx_t context;
 
 
-
-void hexdump(const void *ptr, size_t buflen) {
-    const unsigned char *buf = (const unsigned char*)ptr;
+void hexdump(void *ptr, size_t buflen) {
+    uint8_t *buf = (uint8_t*)ptr;
     size_t i, j;
 
     for (i = 0; i < buflen; i += 16) {
-        // 1. Print the sample memory offset
         printf("%08zx  ", i);
-
-        // 2. Print the hex values (16 bytes per line)
         for (j = 0; j < 16; j++) {
             if (i + j < buflen) {
                 printf("%02x ", buf[i + j]);
             } else {
-                printf("   "); // Padding for shorter lines
+                printf("   "); 
             }
             if (j == 7) {
-                printf(" "); // Extra space after 8th byte for readability
+                printf(" "); 
             }
         }
 
         printf(" |");
-
-        // 3. Print the readable ASCII characters
         for (j = 0; j < 16; j++) {
             if (i + j < buflen) {
-                // If it is printable, show it; otherwise print a dot '.'
                 printf("%c", isprint(buf[i + j]) ? buf[i + j] : '.');
             } else {
-                printf(" "); // Padding for shorter lines
+                printf(" "); 
             }
         }
         
