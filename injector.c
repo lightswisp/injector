@@ -1041,6 +1041,10 @@ int main(int argc, char **argv) {
   }
 
   char *absolute_path = realpath(lib_path, NULL);
+  if(!absolute_path){
+    LOGGER_LOG(FATAL, "absolute path is NULL, make sure that the library is in the same dir");
+    goto end;
+  }
   LOGGER_LOG(LOG, "absolute path: %s", absolute_path);
 
   pid = find_pid(process_name);
